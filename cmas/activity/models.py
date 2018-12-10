@@ -17,10 +17,10 @@ class User(models.Model):
 class Activity(models.Model):
     title = models.CharField(max_length=20)
     content = models.TextField(max_length=5000)
-    stime = models.DateField()
-    ftime = models.DateField()
-    ctime = models.DateField(auto_now_add=True)
-    rtime = models.DateField(auto_now=True)
+    stime = models.DateTimeField()
+    ftime = models.DateTimeField()
+    ctime = models.DateTimeField(auto_now_add=True)
+    rtime = models.DateTimeField(auto_now=True)
     act_type = models.ForeignKey(
         'Activity_type', to_field='name', on_delete=models.DO_NOTHING)
     user_id = models.ForeignKey(
@@ -38,7 +38,7 @@ class Activity_type(models.Model):
 
 
 class Registration(models.Model):
-    time = models.DateField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(
         'User', to_field='id', on_delete=models.DO_NOTHING)
     act_id = models.ForeignKey(
@@ -56,7 +56,7 @@ class Registration(models.Model):
 class Mnotice(models.Model):
     title = models.CharField(max_length=20)
     content = models.CharField(max_length=200)
-    time = models.DateField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=True)
     is_delete = models.IntegerField(default=0)
     user_id = models.ForeignKey(
         'User', to_field='id', on_delete=models.DO_NOTHING)
@@ -67,7 +67,7 @@ class Mnotice(models.Model):
 
 class Sysnotice(models.Model):
     content = models.CharField(max_length=500)
-    time = models.DateField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(
         'User', to_field='id', on_delete=models.DO_NOTHING)
 
