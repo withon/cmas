@@ -21,20 +21,12 @@ class Activity(models.Model):
     ftime = models.DateTimeField()
     ctime = models.DateTimeField(auto_now_add=True)
     rtime = models.DateTimeField(auto_now=True)
-    act_type = models.ForeignKey(
-        'Activity_type', to_field='name', on_delete=models.DO_NOTHING)
+    act_type = models.CharField(max_length=10)
     user_id = models.ForeignKey(
         'User', to_field='id', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return "<title: %s>" % self.title
-
-
-class Activity_type(models.Model):
-    name = models.CharField(max_length=10, primary_key=True)
-
-    def __str__(self):
-        return "<act_name: %s>" % self.name
 
 
 class Registration(models.Model):
