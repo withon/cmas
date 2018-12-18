@@ -1,0 +1,26 @@
+
+			.fakeimg {
+				height:20em;
+				background: #aaa;
+				overflow-x: hidden;
+				overflow-y: auto;
+			}
+			
+			.nav-top {
+				min-width: 8em;
+			}
+			
+			.nav-top>a {
+				text-align: center;
+				font-size: 1.2em;
+			}
+			
+			.text {
+				margin: 0.3em;
+				text-indent: 2em;
+				font-size: 1.5em;
+			}
+			
+			.sm-font {
+				font-size: 0.6em;
+			}
