@@ -11,7 +11,7 @@ class User(models.Model):
     power = models.IntegerField(default=1)
 
     def __str__(self):
-        return "<id: %d num: %s>" % self.pk % self.number
+        return "<id: %s num: %s>" % (self.pk, self.number)
 
 
 class Activity(models.Model):
@@ -42,7 +42,7 @@ class Registration(models.Model):
         )
 
     def __str__(self):
-        return "<uid: %d aid: %d>" % self.user_id % self.act_id
+        return "<uid: %s aid: %s>" % (self.user_id, self.act_id)
 
 
 class Mnotice(models.Model):
@@ -54,7 +54,7 @@ class Mnotice(models.Model):
         'User', to_field='id', on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return "<uid: %d title: %s>" % self.user_id % self.title
+        return "<uid: %s title: %s>" % (self.user_id, self.title)
 
 
 class Sysnotice(models.Model):
@@ -64,4 +64,4 @@ class Sysnotice(models.Model):
         'User', to_field='id', on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return "<sysno uid: %d>" % self.user_id
+        return "<sysno uid: %s>" % self.user_id
