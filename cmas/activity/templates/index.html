@@ -14,14 +14,14 @@
         <div class="col-sm-4">
             <h2>小黑板</h2>
             <div class="fakeimg">
-                <p class="text">本次是本学期第一次点名，8点上课，点名时间为7.57分，凡是点名时未曾答到的均视为迟到，迟到者每人写2000字的说明，向我说明情况，于明天上午12.00前交给各班班长。以后无论上午，或者下午，如若有课均需提前10分钟到教室，我会持续、不定期的到教室查课
+                <p class="text">{{ latest_activity.content }}
                 </p>
                 <div class="row">
                     <div class="col-xs-5">
-                        <p class="sm-font text-left">张鑫焱</p>
+                        <p class="sm-font text-left">{{ latest_activity.user_id.name }}</p>
                     </div>
                     <div class="col-xs-7">
-                        <p class="sm-font text-right">2018.12.06</p>
+                        <p class="sm-font text-right">{{ latest_activity.rtime }}</p>
                     </div>
                 </div>
             </div>
