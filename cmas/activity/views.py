@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import User, Activity, Registration, Mnotice, Sysnotice
 
@@ -6,12 +6,16 @@ from .models import User, Activity, Registration, Mnotice, Sysnotice
 
 
 def index(request):
-    content = {}
+    context = {}
     all_activities = Activity.objects.all()
     latest_activity = all_activities.order_by('-rtime')[0]
-    content['latest_activity'] = latest_activity
-    all_sysnotices = Sysnotice.objects.all()
-    latest_sysnotice = all_sysnotices.order_by('time')[0]
-    content['latest_sysnotice'] = latest_sysnotice
+    context['latest_activity'] = latest_activity
 
-    return render(request, 'index.html', content)
+    return render(request, 'index.html', context)
+
+def act_dtl(request, activity_id):
+    context = {}
+    activity = get_object_or_404(Activity, pk=activity_id)
+    context['activity'] = activity
+
+    return render(request, 'act_dtl.html', context)

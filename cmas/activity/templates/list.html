@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/list.css' %}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-datetimepicker.min.css' %}" />
+{% endblock css %}
+
+{% block content %}
+<!--START MAIN-->
+<div class="list box-shadow">
+    <div class="search">
+        <form action="">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="col-xs-6">
+                        <input type="text" value="" class="timepick form-control" data-date-format="yyyy-mm-dd hh:ii"
+                            placeholder="起始日期" />
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" value="" class="timepick form-control" data-date-format="yyyy-mm-dd hh:ii"
+                            placeholder="截至日期" />
+                    </div>
+                </div>
+                <div class="col-md-2" style="padding: 0 2em;">
+                    <select class="form-control">
+                        <option>全部</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="col-md-2" style="padding: 0 2em;">
+                    <button class="btn btn-default btn-block">查询</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+
+                </div>
+                <div class="col-xs-8">
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>活动名称</th>
+                <th>姓名</th>
+                <th>开始时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+            <tr>
+                <td><a href="">这是一次活动，管他是什么</a></td>
+                <td>Bangalore</td>
+                <td>2018年12月31日 14：31</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <ul class="pagination">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+<!--END MAIN-->
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}

@@ -1,7 +1,12 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+首页
+{% endblock title %}
 
 {% block css %}
-<link rel="stylesheet" type="text/css" media="screen" href="css/index.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/index.css' %}" />
 
 {% endblock css %}
 
@@ -10,15 +15,11 @@
 <div class="bannar box-shadow">
     <div class="row">
         <div class="col-xs-7">
-            <img src="image/logo.png" alt="logo">
-            <h2>活动标题</h2>
-            <p>这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。这里是内容，啦啦啦。</p>
-            <div>
-                <span></span>
-            </div>
+            <img src="{% static 'image/logo.png' %}" alt="logo">
+            <h2>{{ latest_activity.title }}</h2>
+            <p>{{ latest_activity.content }}</p>
             <button class="btn btn-primary">点击进入</button>
         </div>
-        <div class="col-xs-5"></div>
     </div>
 </div>
 <!--END BANNAR-->
@@ -43,3 +44,7 @@
 </div>
 <!--END ENTRANCE-->
 {% endblock content %}
+
+{% block js %}
+
+{% endblock js %}

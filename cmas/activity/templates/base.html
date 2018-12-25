@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}欢迎访问CMAS{% endblock title %}</title>
+    <link rel="shortcut icon" href="{% static 'image/logo.ico' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/base.css' %}" />
+    {% block css %}{% endblock css %}
+</head>
+
+<body>
+    <div class="container">
+        <!--START NAV-->
+        <nav class="navbar navbar-default navbar-noradius box-shadow" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">CMAS</a>
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">主页</a></li>
+                        <li><a href="#">活动</a></li>
+                        <li><a href="#">查询</a></li>
+                        <li><a href="#">公告</a></li>
+                        
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                魏子昂 <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--END NAV-->
+
+        {% block content %}{% endblock content %}
+
+        <!--START FOOTER-->
+        <div class="footer box-shadow">
+            <p>底栏现在没有东西</p>
+        </div>
+        <!--END FOOTER-->
+    </div>
+
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block js %}{% endblock js %}
+
+</body>
+
+</html>
