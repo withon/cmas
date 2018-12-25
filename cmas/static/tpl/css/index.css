@@ -1,0 +1,61 @@
+.bannar{
+    background-color: #f8f8f8;
+    background: url(../image/banner.png)no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    -moz-background-size: cover;
+    min-height: 450px;
+    text-align: left;
+    padding: 2em;
+    margin-bottom: 2em;
+}
+.bannar img{
+    width: 16%;
+}
+.bannar h2{
+    
+}
+.bannar p{
+    height: 10em;
+    overflow:hidden;
+}
+
+@media screen and (max-width: 992px) {
+    .bannar{
+        min-height: 200px;
+    }
+    .bannar img{
+        display: none;
+    }
+    .bannar p{
+        height: 4em;
+        
+    }
+}
+
+.entrance{
+    display: block;
+    padding: 1.6em 2em 2em;
+    background-color: #f8f8f8;
+}
+.entrance h3{
+    text-align: center;
+}
+.entrance:hover{
+    background-color: rgb(225, 127, 255);
+}
+.entrance:active{
+    background-color: rgb(220, 112, 253);
+
+}
+.entrance1{
+    background-color: khaki;
+}
+.entrance2{
+    background-color: chartreuse;
+}
+.entrance3{
+    background-color: gold;
+}

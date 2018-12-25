@@ -1,26 +1,38 @@
+* {
+    margin: 0;
+}
 
-			.fakeimg {
-				height:20em;
-				background: #aaa;
-				overflow-x: hidden;
-				overflow-y: auto;
-			}
-			
-			.nav-top {
-				min-width: 8em;
-			}
-			
-			.nav-top>a {
-				text-align: center;
-				font-size: 1.2em;
-			}
-			
-			.text {
-				margin: 0.3em;
-				text-indent: 2em;
-				font-size: 1.2em;
-			}
-			
-			.sm-font {
-				font-size: 1em;
-			}
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+body {
+    background: rgb(5, 185, 230);
+    padding-top: 30px;
+}
+
+.box-shadow {
+    box-shadow: -5px 4px 40px -15px #000000;
+}
+
+.navbar-noradius {
+    border-radius: 0;
+}
+
+.footer {
+    margin: 2em 0;
+    padding: 1.5em 0 1em 0;
+    background-color: #f8f8f8;
+}
+
+.footer>p {
+    text-align: center;
+}
+
+.pagination {
+    background-color: #f8f8f8;
+}
