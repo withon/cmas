@@ -22,6 +22,7 @@ class Activity(models.Model):
     ctime = models.DateTimeField(auto_now_add=True)
     rtime = models.DateTimeField(auto_now=True)
     act_type = models.CharField(max_length=10)
+    max_num = models.IntegerField()
     user_id = models.ForeignKey(
         'User', to_field='id', on_delete=models.DO_NOTHING)
 
