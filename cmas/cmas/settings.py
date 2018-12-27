@@ -26,6 +26,7 @@ SECRET_KEY = 't0r^y7zio+he40b5whg9+1c-k8*-mll!8#k+klq*m#pm6=3%is'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'user.User'
 
 
 # Application definition
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user',
     'activity',
 ]
 
@@ -55,7 +57,11 @@ ROOT_URLCONF = 'cmas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'cmas/templates'),
+            os.path.join(BASE_DIR, 'activity/templates'),
+            os.path.join(BASE_DIR, 'user/templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

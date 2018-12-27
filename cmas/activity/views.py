@@ -1,15 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import User, Activity, Registration, Mnotice, Sysnotice
+from django.contrib.auth import get_user_model
+from .models import Activity, Registration, Mnotice, Sysnotice
 
 # Create your views here.
+User = get_user_model()
 
 
 def index(request):
     context = {}
     all_activities = Activity.objects.all()
-    latest_activity = all_activities.order_by('-rtime')[0]
-    context['latest_activity'] = latest_activity
+    if all_activities:
+        latest_activity = all_activities.order_by('-rtime')[0]
+        context['latest_activity'] = latest_activity
 
     return render(request, 'index.html', context)
 

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}欢迎访问CMAS{% endblock title %}</title>
-    <link rel="shortcut icon" href="{% static 'image/logo.ico' %}"/>
+    <link rel="shortcut icon" href="{% static 'image/logo.ico' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}" />
@@ -34,17 +34,25 @@
                         <li><a href="{% url 'act_list' %}">活动</a></li>
                         <li><a href="#">查询</a></li>
                         <li><a href="#">公告</a></li>
-                        
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                魏子昂 <b class="caret"></b>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                {{ user.name }} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">注销</a></li>
+                                <li><a href="{% url 'logout' %}">注销</a></li>
                             </ul>
                         </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}?from={{ request.path }}">
+                                登录
+                            </a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -55,7 +63,7 @@
 
         <!--START FOOTER-->
         <div class="footer box-shadow">
-            <p>底栏现在没有东西</p>
+            <p>GPLv3 licensed by <a href="https://github.com/withon/cmas/" target="_blank">CMAS</a> 2018 </p>
         </div>
         <!--END FOOTER-->
     </div>

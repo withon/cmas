@@ -1,17 +1,18 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
 
-class User(models.Model):
-    number = models.CharField(max_length=20, unique=True)
-    passwd_hash = models.CharField(max_length=100, default='123456')
-    name = models.CharField(max_length=50)
-    sex = models.CharField(max_length=2)
-    power = models.IntegerField(default=1)
+# class User(models.Model):
+#     number = models.CharField(max_length=20, unique=True)
+#     passwd_hash = models.CharField(max_length=100, default='123456')
+#     name = models.CharField(max_length=50)
+#     sex = models.CharField(max_length=2)
+#     power = models.IntegerField(default=1)
 
-    def __str__(self):
-        return "<id: %s num: %s>" % (self.pk, self.number)
+#     def __str__(self):
+#         return "<id: %s num: %s>" % (self.pk, self.number)
 
 
 class Activity(models.Model):
@@ -24,7 +25,7 @@ class Activity(models.Model):
     act_type = models.CharField(max_length=10)
     max_num = models.IntegerField()
     user_id = models.ForeignKey(
-        'User', to_field='id', on_delete=models.DO_NOTHING)
+        settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return "<title: %s>" % self.title
@@ -33,7 +34,7 @@ class Activity(models.Model):
 class Registration(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(
-        'User', to_field='id', on_delete=models.DO_NOTHING)
+        settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
     act_id = models.ForeignKey(
         'Activity', to_field='id', on_delete=models.DO_NOTHING)
 
@@ -52,7 +53,7 @@ class Mnotice(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     is_delete = models.IntegerField(default=0)
     user_id = models.ForeignKey(
-        'User', to_field='id', on_delete=models.DO_NOTHING)
+        settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return "<uid: %s title: %s>" % (self.user_id, self.title)
@@ -62,7 +63,7 @@ class Sysnotice(models.Model):
     content = models.CharField(max_length=500)
     time = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(
-        'User', to_field='id', on_delete=models.DO_NOTHING)
+        settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return "<sysno uid: %s>" % self.user_id

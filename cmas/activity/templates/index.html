@@ -16,9 +16,16 @@
     <div class="row">
         <div class="col-xs-7">
             <img src="{% static 'image/logo.png' %}" alt="logo">
+            {% if latest_activity %}
             <h2>{{ latest_activity.title }}</h2>
             <p>{{ latest_activity.content }}</p>
-            <button class="btn btn-primary">点击进入</button>
+            <a class="btn btn-primary">点击进入</a>
+            {% else %}
+            <h2>暂无活动</h2>
+            <p>班长那个大懒蛋不想发活动，我能怎么办~嘤嘤嘤~</p>
+            {% endif %}
+
+
         </div>
     </div>
 </div>
@@ -27,7 +34,7 @@
 <!--START ENTRANCE-->
 <div class="row">
     <div class="col-xs-4">
-        <a href="" class="entrance entrance1 box-shadow">
+        <a href="{% url 'act_list' %}" class="entrance entrance1 box-shadow">
             <h3>历史活动</h3>
         </a>
     </div>
