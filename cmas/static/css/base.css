@@ -15,6 +15,12 @@ body {
     padding-top: 30px;
 }
 
+.main {
+    margin: 2em 0;
+    background-color: #f8f8f8;
+    padding: 2em;
+}
+
 .box-shadow {
     box-shadow: -5px 4px 40px -15px #000000;
 }

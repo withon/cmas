@@ -7,10 +7,10 @@ from django.urls import reverse
 
 
 def login(request):
-    referer = redirect(request.GET.get('from'), reverse('index'))
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        referer = redirect(request.GET.get('from'), reverse('index'))
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
@@ -23,4 +23,5 @@ def login(request):
 @require_http_methods(['GET'])
 def logout(request):
     auth.logout(request)
-    return render(request, 'login.html', {})
+    referer = request.META.get('HTTP_REFERER', reverse('index'))
+    return redirect(referer)

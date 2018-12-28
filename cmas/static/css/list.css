@@ -1,26 +1,25 @@
-.main {
-    margin: 2em 0;
-    background-color: #f8f8f8;
-    padding: 2em;
-}
 .search {
     margin: 1em 0;
 }
-.list-top{
+
+.list-top {
     margin: 0 1em;
     padding: 0.6em 0;
     border-bottom: solid rgb(206, 206, 206) 1px;
 
 }
+
 .list {
     margin: 0 1em;
     padding: 0.6em 0;
     border-bottom: solid rgb(206, 206, 206) 1px;
 }
+
 @media screen and (max-width: 992px) {
     .list-top {
         display: none;
     }
+
     .list {
         margin: 0;
     }

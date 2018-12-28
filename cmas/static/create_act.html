@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>创建活动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="bootstrap/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-datetimepicker.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!--START NAV-->
+        <nav class="navbar navbar-default navbar-noradius box-shadow" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">CMAS</a>
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">主页</a></li>
+                        <li><a href="#">SVN</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Java <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">jmeter</a></li>
+                                <li><a href="#">EJB</a></li>
+                                <li><a href="#">Jasper Report</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">分离的链接</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">另一个分离的链接</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                魏子昂 <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--END NAV-->
+
+        <!--START MAIN-->
+        <div class="main box-shadow">
+            <h2>创建活动</h2>
+            <hr>
+            <div class="row">
+
+                <div class="col-md-10">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="act_title" class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="actJ_title" placeholder="标题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="act_content" class="col-sm-2 control-label">详情</label>
+                            <div class="col-sm-10">
+                                
+                                <textarea class="form-control" name="act_content" id="act_content"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="act_type" class="col-sm-2 control-label">类型</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="act_type" placeholder="类型">
+                                <p class="help-block">已有类型：类型1 类型2 类型3</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="act_content" class="col-sm-2 control-label">开始时间</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="" class="timepick form-control" data-date-format="yyyy-mm-dd hh:ii"
+                                    placeholder="起始日期" name="start_time" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="act_content" class="col-sm-2 control-label">结束时间</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="" class="timepick form-control" data-date-format="yyyy-mm-dd hh:ii"
+                                    placeholder="截至日期" name="end_time" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">创建</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--END MAIN-->
+
+        <!--START FOOTER-->
+        <div class="footer box-shadow">
+            <p>底栏现在没有东西</p>
+        </div>
+        <!--END FOOTER-->
+    </div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script>
+        $('.timepick').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 0,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 0,
+            forceParse: 0,
+        });
+    </script>
+    <script src="ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            CKEDITOR.replace('act_content');
+        };
+    </script>
+</body>
+
+</html>

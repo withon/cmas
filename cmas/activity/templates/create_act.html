@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+创建活动
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-datetimepicker.min.css' %}" />
+{% endblock css %}
+
+{% block content %}
+<!--START MAIN-->
+<div class="main box-shadow">
+    <h2>创建活动</h2>
+    <hr>
+    <div class="row">
+
+        <div class="col-md-10">
+            {% if error_message %}
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                {{ error_message }}
+            </div>
+            {% endif %}
+            <form class="form-horizontal" action="{% url 'create_act' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="act_title" class="col-sm-2 control-label">标题</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="act_title" name="act_title" placeholder="标题">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="act_content" class="col-sm-2 control-label">详情</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="act_content" id="act_content"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="act_type" class="col-sm-2 control-label">类型</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="act_type" name="act_type" placeholder="类型">
+                        <p class="help-block">
+                            已有类型：
+                            {% for act_type in act_types %}
+                            {{ act_type.act_type }}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="start_time" class="col-sm-2 control-label">开始时间</label>
+                    <div class="col-sm-10">
+                        <input type="text" value="" class="timepick form-control" id="start_time" data-date-format="yyyy-mm-dd hh:ii"
+                            placeholder="起始日期" name="start_time" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="finish_time" class="col-sm-2 control-label">结束时间</label>
+                    <div class="col-sm-10">
+                        <input type="text" value="" class="timepick form-control" id="finish_time" data-date-format="yyyy-mm-dd hh:ii"
+                            placeholder="截至日期" name="finish_time" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="max_num" class="col-sm-2 control-label">人数上限</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="max_num" name="max_num" placeholder="人数上限">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">创建</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--END MAIN-->
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-datetimepicker.zh-CN.js' %}"></script>
+<script>
+    $('.timepick').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 0,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 0,
+        forceParse: 0,
+    });
+</script>
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+<script>
+    window.onload = function () {
+        CKEDITOR.replace('act_content');
+    };
+</script>
+{% endblock js %}

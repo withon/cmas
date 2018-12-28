@@ -18,8 +18,8 @@
             <img src="{% static 'image/logo.png' %}" alt="logo">
             {% if latest_activity %}
             <h2>{{ latest_activity.title }}</h2>
-            <p>{{ latest_activity.content }}</p>
-            <a class="btn btn-primary">点击进入</a>
+            <p>{{ latest_activity.content|striptags }}</p>
+            <a class="btn btn-primary" href="{% url 'act_dtl' latest_activity.pk %}">点击进入</a>
             {% else %}
             <h2>暂无活动</h2>
             <p>班长那个大懒蛋不想发活动，我能怎么办~嘤嘤嘤~</p>
