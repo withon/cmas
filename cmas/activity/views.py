@@ -75,9 +75,13 @@ def create_act(request):
     act_types = Activity.objects.values('act_type').distinct().order_by()
     context['act_types'] = act_types
 
+    if not request.user.is_authenticated:
+        redirect(reverse('index'))
+
+    if not request.user.is_staff:
+        redirect(reverse('index'))
+
     if request.method == 'POST':
-        if not request.user.is_authenticated:
-            redirect(reverse('index'))
 
         title = request.POST.get('act_title', '').strip()
         if title == '':
@@ -93,7 +97,7 @@ def create_act(request):
         if act_type == '':
             context['error_message'] = '请填写活动类型'
             return render(request, 'create_act.html', context)
-            
+
         start_time = request.POST.get('start_time', '').strip()
         if start_time == '':
             context['error_message'] = '请填写开始时间'
@@ -105,7 +109,7 @@ def create_act(request):
             return render(request, 'create_act.html', context)
 
         if start_time >= finish_time:
-            context['error_message'] = '开始时间需再结束时间之前'
+            context['error_message'] = '开始时间需在结束时间之前'
             return render(request, 'create_act.html', context)
         try:
             max_num = int(request.POST.get('max_num', '').strip())
@@ -113,11 +117,33 @@ def create_act(request):
             context['error_message'] = '人数上限不合法'
             return render(request, 'create_act.html', context)
 
-        activity = Activity(title=title, content=content, stime=start_time, ftime=finish_time, act_type=act_type, max_num=max_num, user_id=User.objects.filter(pk=request.user.pk).first())
-        activity.save()
+        user = User.objects.filter(pk=request.user.pk).first()
 
-        return redirect (reverse('act_list'))
+        activity = Activity(title=title, content=content, stime=start_time, ftime=finish_time,
+                            act_type=act_type, max_num=max_num, user_id=user)
 
+        try:
+            activity.save()
+        except:
+            context['error_message'] = '出现未知错误，创建失败，请联系系统管理员。'
+            return render(request, 'create_act.html', context)
+
+        act_id = Activity.objects.all().order_by('-rtime').first().pk
+        sys_content = '<strong>%s</strong> <span>创建</span> <strong>%s</strong> 类型活动 <strong>%s</strong>(id:%s)<br>开始时间为：%s 结束时间为：%s<br>人数上限为：%s' % (
+            user.name, act_type, title, act_id, start_time, finish_time, max_num)
+        sysnotice = Sysnotice(content=sys_content, user_id=user)
+        sysnotice.save()
+
+
+        return redirect(reverse('act_list'))
 
     else:
         return render(request, 'create_act.html', context)
+
+
+def sysnotice(request):
+    context = {}
+    all_sysnotices = Sysnotice.objects.all().order_by('-time')
+    context['sysnotices'] = all_sysnotices
+
+    return render(request, 'sysnotice.html', context)

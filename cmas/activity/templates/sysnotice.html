@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+系统通知
+{% endblock title %}
+
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<!--START SYSNOTICE-->
+<div class="main box-shadow">
+    <h2 class="text-center">系统公告</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>时间</th>
+                <th>内容</th>
+                <th>用户</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sysnotice in sysnotices %}
+            <tr style="word-break:break-all ">
+                <td>{{ sysnotice.time }}</td>
+                <td style="width:65%">{{ sysnotice.content|safe }}</td>
+                <td style="width:16%">{{ sysnotice.user_id.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!--END SYSNOTICE-->
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}
