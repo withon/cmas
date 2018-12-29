@@ -21,11 +21,15 @@
         </div>
         <div class="col-md-1 col-md-push-5">
             {% if is_select %}
-            <button class="btn btn-block btn-primary text-center">已报名</button>
+            <p>已报名</p>
+            {% elif now < activity.stime %}
+            <p>未开始</p>
+            {% elif now > activity.ftime %}
+            <p>已结束</p>
             {% elif user.is_authenticated %}
             <form action="{% url 'select' %}" method="POST">
                 {% csrf_token %}
-                <input type="submit" class="btn btn-block btn-primary text-center" value="报名"></input>
+                <input type="submit" class="btn btn-block btn-primary text-center" value="报名">
                 <input type="hidden" value="{{ activity.pk }}" name="activity">
             </form>
             {% else %}

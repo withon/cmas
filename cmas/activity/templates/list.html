@@ -19,12 +19,12 @@
                 <div class="col-md-7">
                     <div class="row">
                         <div class="col-xs-6">
-                            <input type="text" value="" class="timepick form-control" data-date-format="yyyy-mm-dd hh:ii"
-                                placeholder="起始日期" name="start_time" />
+                            <input type="text" value="{% if form_start_time %}{{ form_start_time }}{% endif %}" class="timepick form-control"
+                                data-date-format="yyyy-mm-dd hh:ii" placeholder="起始日期" name="start_time" />
                         </div>
                         <div class="col-xs-6">
-                            <input type="text" value="" class="timepick form-control" data-date-format="yyyy-mm-dd hh:ii"
-                                placeholder="截至日期" name="end_time" />
+                            <input type="text" value="{% if form_finish_time %}{{ form_finish_time }}{% endif %}" class="timepick form-control" data-date-format="yyyy-mm-dd hh:ii"
+                                placeholder="截至日期" name="finish_time" />
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,11 @@
                     <select class="form-control" name="act_type">
                         <option>全部</option>
                         {% for act_type in act_types %}
-                        <option>{{ act_type.act_type }}</option>
+                            {% if form_act_type == act_type.act_type %}
+                                <option selected = "selected" >{{ act_type.act_type }}</option>
+                            {% else %}
+                                <option>{{ act_type.act_type }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
@@ -42,7 +46,7 @@
                             <input type="checkbox" name="apply_only">仅已报名
                         </div>
                         <div class="col-xs-5">
-                            <input type="hidden" name="is_select" value="1">
+                            <input type="hidden" name="is_search" value="1">
                             <button type="submit" class="btn btn-default btn-block">查询</button>
                         </div>
                     </div>
@@ -78,14 +82,20 @@
                 <a href="{% url 'act_dtl' activity.pk %}">
                     {{ activity.title }}
                 </a>
+                {% if now < activity.stime %}
+                <span class="label label-default">未开始</span>
+                {% elif now <= activity.ftime %}
                 <span class="label label-warning">进行中</span>
+                {% endif %}
+                {% if activity in selects %}
                 <span class="label label-success">已报名</span>
+                {% endif %}
             </div>
             <div class="col-md-7">
                 <div class="col-xs-6" style="padding:0; margin: 0.6em 0;">
                     <div class="row">
-                        <div class="col-md-6">{{ activity.stime|date:"m月d日 H:i" }}</div>
-                        <div class="col-md-6">{{ activity.ftime|date:"m月d日 H:i" }}</div>
+                        <div class="col-md-6">{{ activity.stime|date:"y年m月d日 H:i" }}</div>
+                        <div class="col-md-6">{{ activity.ftime|date:"y年m月d日 H:i" }}</div>
                     </div>
                 </div>
                 <div class="col-xs-6 text-right" style="margin: 0.6em 0;">

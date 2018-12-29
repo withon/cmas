@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_http_methods
+from django.utils.timezone import now
+from datetime import datetime
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from .models import Activity, Registration, Mnotice, Sysnotice
 
@@ -13,7 +15,7 @@ def index(request):
     context = {}
     all_activities = Activity.objects.all()
     if all_activities:
-        latest_activity = all_activities.order_by('-rtime')[0]
+        latest_activity = all_activities.order_by('-rtime').first()
         context['latest_activity'] = latest_activity
 
     return render(request, 'index.html', context)
@@ -27,28 +29,47 @@ def act_dtl(request, activity_id):
             context['is_select'] = True
     activity = get_object_or_404(Activity, pk=activity_id)
     context['activity'] = activity
+    context['now'] = now()
 
     return render(request, 'act_dtl.html', context)
 
 
 def act_list(request):
     context = {}
+        
+
+    context['now'] = now()
     act_types = Activity.objects.values('act_type').distinct().order_by()
     context['act_types'] = act_types
-    if request.GET.get('is_select'):
-        start_time = request.GET.get('start_time', '')
-        end_time = request.GET.get('end_time', '')
-        act_type = request.GET.get('act_type', '')
+    all_activities = Activity.objects.all().order_by('-rtime')
+
+    if request.user.is_authenticated:
+        context['selects'] = all_activities.filter(registration__user_id=User.objects.filter(pk=request.user.pk).first())
+
+    if request.GET.get('is_search'):
+        start_time = request.GET.get('start_time')
+        if start_time:
+            all_activities = all_activities.filter(ftime__gt=start_time)
+            context['form_start_time'] = start_time
+
+        finish_time = request.GET.get('finish_time')
+        if finish_time:
+            all_activities = all_activities.filter(stime__lt=finish_time)
+            context['form_finish_time'] = finish_time
+
+        act_type = request.GET.get('act_type')
         if act_type == '全部':
             act_type = ''
-        apply_only = request.GET.get('apply_only', '')
-        all_activities = Activity.objects.filter(
-            ftime__gte=start_time, stime__lte=end_time).order_by('-stime')
         if act_type:
             all_activities = all_activities.filter(act_type=act_type)
+            context['form_act_type'] = act_type
 
-    else:
-        all_activities = Activity.objects.all().order_by('-rtime')
+        apply_only = request.GET.get('apply_only')
+        if apply_only and request.user.is_authenticated:
+            user = User.objects.filter(pk=request.user.pk).first()
+            all_activities = all_activities.filter(registration__user_id=user)
+            context['form_apply_only'] = True
+
     for activity in all_activities:
         cnt = Registration.objects.filter(act_id=activity.id).count()
         activity.cnt = cnt
@@ -62,6 +83,8 @@ def select(request):
     if not request.user.is_authenticated:
         return redirect(reverse('index'))
     activity = Activity.objects.filter(pk=request.POST.get('activity')).first()
+    if activity.stime > now() or activity.ftime < now():
+        return redirect(reverse('index'))
     user = User.objects.filter(pk=request.user.pk).first()
     registration = Registration(user_id=user, act_id=activity)
     registration.save()
