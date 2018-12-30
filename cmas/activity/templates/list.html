@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}
-
+历史活动
 {% endblock title %}
 
 {% block css %}
@@ -43,7 +43,11 @@
                 <div class="col-md-3">
                     <div class="row">
                         <div class="col-xs-7 text-center" style="padding-top:0.5em;">
-                            <input type="checkbox" name="apply_only">仅已报名
+                            {% if form_apply_only %}
+                                <input type="checkbox" checked="checked" name="apply_only">仅已报名
+                            {% else %}
+                                <input type="checkbox" name="apply_only">仅已报名
+                            {% endif %}
                         </div>
                         <div class="col-xs-5">
                             <input type="hidden" name="is_search" value="1">
@@ -80,7 +84,7 @@
         <div class="row list">
             <div class="col-md-5" style="margin: 0.6em 0;">
                 <a href="{% url 'act_dtl' activity.pk %}">
-                    {{ activity.title }}
+                    {{ activity.title }}(No.{{ activity.id }})
                 </a>
                 {% if now < activity.stime %}
                 <span class="label label-default">未开始</span>
@@ -112,13 +116,29 @@
 
     <div class="text-center">
         <ul class="pagination">
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
+            {% if page_of_activities.has_previous %}
+                <li><a href="?page={{ page_of_activities.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li><span>&laquo;</span></li>
+            {% endif %}
+            
+            {% for page_num in page_range %}
+                {% if page_num == page_of_activities.number %}
+                    <li class="active"><span>{{ page_num }}</span></li>
+                {% else %}
+                    {% if page_num == '...' %}
+                        <li><span>{{ page_num }}</span></li>
+                    {% else %}
+                        <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if page_of_activities.has_next %}
+                <li><a href="?page={{ page_of_activities.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li><span>&raquo;</span></li>
+            {% endif %}
         </ul>
     </div>
 </div>
@@ -136,8 +156,8 @@
         todayBtn: 1,
         autoclose: 1,
         todayHighlight: 1,
-        startView: 2,
-        minView: 0,
+        startView: 3,
+        minView: 2,
         forceParse: 0,
     });
 </script>

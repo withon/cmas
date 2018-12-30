@@ -27,6 +27,10 @@ class Activity(models.Model):
     point = models.FloatField(default=0)
     user_id = models.ForeignKey(
         settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
+    is_freeze = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-rtime']
 
     def __str__(self):
         return "<title: %s>" % self.title
@@ -40,6 +44,7 @@ class Registration(models.Model):
         'Activity', to_field='id', on_delete=models.DO_NOTHING)
 
     class Meta:
+        ordering = ['-time']
         unique_together = (
             ('user_id', 'act_id'),
         )
@@ -48,23 +53,14 @@ class Registration(models.Model):
         return "<uid: %s aid: %s>" % (self.user_id, self.act_id)
 
 
-class Mnotice(models.Model):
-    title = models.CharField(max_length=20)
-    content = models.CharField(max_length=200)
-    time = models.DateTimeField(auto_now_add=True)
-    is_delete = models.IntegerField(default=0)
-    user_id = models.ForeignKey(
-        settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return "<uid: %s title: %s>" % (self.user_id, self.title)
-
-
 class Sysnotice(models.Model):
     content = models.CharField(max_length=500)
     time = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(
         settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
+
+    class Meta:
+        ordering = ['-time']
 
     def __str__(self):
         return "<sysno uid: %s>" % self.user_id
