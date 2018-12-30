@@ -15,17 +15,26 @@
     <div class="row">
         <div class="col-md-6 col-md-push-3 activity-time">
             <ul class="list-inline text-center">
+
+                <li>分值：{{ activity.point|floatformat:2 }}</li>
+                <li>报名人数：{{ activity.cnt }}/{{ activity.max_num }}</li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-push-3 activity-time">
+            <ul class="list-inline text-center">
                 <li>开始时间：{{ activity.stime }}</li>
                 <li>结束时间：{{ activity.ftime }}</li>
             </ul>
         </div>
-        <div class="col-md-1 col-md-push-5">
+        <div class="col-md-2 col-md-push-4">
             {% if is_select %}
-            <p>已报名</p>
-            {% elif now < activity.stime %}
-            <p>未开始</p>
+            <p class="text-center">已报名</p>
+            {% elif now < activity.stime %} <p class="text-center">未开始</p>
             {% elif now > activity.ftime %}
-            <p>已结束</p>
+            <p class="text-center">已结束</p>
             {% elif user.is_authenticated %}
             <form action="{% url 'select' %}" method="POST">
                 {% csrf_token %}
@@ -33,7 +42,7 @@
                 <input type="hidden" value="{{ activity.pk }}" name="activity">
             </form>
             {% else %}
-            <p>未登录</p>
+            <p>请<a href="{% url 'login' %}?from={{ request.path }}">登录</a>后报名</p>
             {% endif %}
         </div>
     </div>
@@ -45,6 +54,9 @@
     <div class="text-right">
         <p>{{ activity.user_id.name }}</p>
         <p>{{ activity.ctime }}</p>
+        {% if user.is_authenticated and user.is_staff %}
+        <p><a href="{% url 'edit_act' %}?from={{ activity.pk }}">编辑</a></p>
+        {% endif %}
     </div>
 </div>
 <!--END DETIAL-->

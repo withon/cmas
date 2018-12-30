@@ -24,7 +24,7 @@
         <tbody>
             {% for sysnotice in sysnotices %}
             <tr style="word-break:break-all ">
-                <td>{{ sysnotice.time }}</td>
+                <td>{{ sysnotice.time|date:'Y-m-d H:i:s' }}</td>
                 <td style="width:65%">{{ sysnotice.content|safe }}</td>
                 <td style="width:16%">{{ sysnotice.user_id.name }}</td>
             </tr>

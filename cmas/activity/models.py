@@ -24,6 +24,7 @@ class Activity(models.Model):
     rtime = models.DateTimeField(auto_now=True)
     act_type = models.CharField(max_length=10)
     max_num = models.IntegerField()
+    point = models.FloatField(default=0)
     user_id = models.ForeignKey(
         settings.AUTH_USER_MODEL, to_field='id', on_delete=models.DO_NOTHING)
 

@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>505</title>
+    <link rel="shortcut icon" href="{% static 'image/logo.ico' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/login.css' %}" />
+</head>
+
+<body>
+
+    <div class="container">
+
+
+        <!--START ERROR-->
+        <div class="row">
+            <div class="col-md-6 col-md-push-3">
+                <div class="login box-shadow">
+                    <div class="alert alert-danger alert-dismissable">
+                        505 page error
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END ERROR-->
+
+
+    </div>
+
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>
