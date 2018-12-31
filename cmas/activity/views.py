@@ -121,8 +121,7 @@ def select(request):
     if not request.user.is_authenticated:
         return redirect(reverse('index'))
 
-    activity = Activity.objects.get_object_or_404(
-        pk=request.POST.get('activity'))
+    activity = get_object_or_404(Activity, pk=request.POST.get('activity'))
     activity.cnt = Registration.objects.filter(act_id=activity.id).count()
     if activity.stime > now() or activity.ftime < now():
         return redirect(reverse('index'))
@@ -130,7 +129,7 @@ def select(request):
     if activity.max_num <= activity.cnt:
         return render(request, 'message.html', {'error_message': '报名失败，名额已满。'})
 
-    user = User.objects.get_object_or_404(pk=request.user.pk)
+    user = get_object_or_404(User, pk=request.user.pk)
     registration = Registration(user_id=user, act_id=activity)
 
     registration.save()
@@ -216,6 +215,8 @@ def edit_act(request):
     if not request.user.is_staff:
         return redirect(reverse('index'))
 
+    user = User.objects.get(pk=request.user.pk)
+
     context = {}
 
     if request.method == 'GET':
@@ -266,7 +267,6 @@ def edit_act(request):
                 context['error_message'] = '人数上限不合法'
                 return render(request, 'message.html', context)
 
-            user = User.objects.filter(pk=request.user.pk).first()
 
             activity.title = title
             activity.content = content
@@ -293,8 +293,8 @@ def edit_act(request):
             return render(request, 'message.html', context)
 
         act_id = Activity.objects.all().order_by('-rtime').first().pk
-        sys_content = '<strong>%s</strong> <span>修改</span> <strong>%s</strong> 类型活动 <strong>%s</strong>(id:%s)<br>开始时间为：%s 结束时间为：%s<br>人数上限为：%s' % (
-            user.name, act_type, title, act_id, start_time, finish_time, max_num)
+        sys_content = '<strong>%s</strong> <span>修改</span> <strong>%s</strong> 类型活动 <strong>%s</strong>(id:%s)<br>开始时间为：%s 结束时间为：%s<br>人数上限为：%s 分值为：%s<br>冻结状态为：%s' % (
+            user.name, activity.act_type, activity.title, activity.pk, activity.stime, activity.ftime, activity.max_num, activity.point, activity.is_freeze)
         sysnotice = Sysnotice(content=sys_content, user_id=user)
         sysnotice.save()
 

@@ -42,7 +42,7 @@
                 <input type="hidden" value="{{ activity.pk }}" name="activity">
             </form>
             {% else %}
-            <p>请<a href="{% url 'login' %}?from={{ request.path }}">登录</a>后报名</p>
+            <p class="text-center">请<a href="{% url 'login' %}?from={{ request.path }}">登录</a>后报名</p>
             {% endif %}
         </div>
     </div>

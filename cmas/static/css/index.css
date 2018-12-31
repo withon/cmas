@@ -15,16 +15,20 @@
     width: 16%;
 }
 .bannar h2{
-    
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .bannar p{
     height: 10em;
     overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 @media screen and (max-width: 992px) {
     .bannar{
         min-height: 200px;
+        padding: 0.6em 2em;
     }
     .bannar img{
         display: none;

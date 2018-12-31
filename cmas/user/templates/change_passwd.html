@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-6 col-md-push-3">
                 <div class="login box-shadow">
-                    <h2 class="text-center">CMAS班级管理助手</h2>
+                    <h2 class="text-center">修改密码</h2>
                     {% if error_message %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -32,29 +32,33 @@
                         {{ error_message }}
                     </div>
                     {% endif %}
-                    <form action="{% url 'login' %}" class="form-horizontal" role="form" method="POST">
+                    <form action="{% url 'change_passwd' %}" class="form-horizontal" role="form" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="account" class="col-sm-2 control-label">账号</label>
+                            <label for="old_password" class="col-sm-2 control-label">原密码</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="account" name="username" placeholder="请输入学号/账号">
+                                <input type="password" class="form-control" id="old_password" name="old_password" placeholder="请输入原密码">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="col-sm-2 control-label">密码</label>
+                            <label for="new_password" class="col-sm-2 control-label">新密码</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+                                <input type="password" class="form-control" id="new_password" name="new_password" placeholder="请输入新密码">
                             </div>
                         </div>
-                        <input type="hidden" value="{{ from }}" name="from">
-                        <button type="submit" class="btn btn-default">登录</button>
+                        <div class="form-group">
+                            <label for="confirm_password" class="col-sm-2 control-label">请确认</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="请再输入一遍新密码">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default">修改</button>
+                        <p class="text-center" style="margin: 1em 0 0;">GPLv3 licensed by <a href="https://github.com/withon/cmas/" target="_blank">CMAS</a> 2018 </p>
                     </form>
-                    <p class="text-center" style="margin: 1em 0 0;">GPLv3 licensed by <a href="https://github.com/withon/cmas/" target="_blank">CMAS</a> 2018 </p>
                 </div>
             </div>
         </div>
         <!--END LOGIN-->
-
 
     </div>
 

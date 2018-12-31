@@ -5,7 +5,13 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block title %}ERROR{% endblock title %}</title>
+    <title>
+        {% if error_message %}
+        ERROR
+        {% else %}
+        SUCCESS
+        {% endif %}
+    </title>
     <link rel="shortcut icon" href="{% static 'image/logo.ico' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
@@ -27,6 +33,11 @@
                     <div class="alert alert-danger alert-dismissable">
                         {{ error_message }}
                     </div>
+                    {% elif success_message %}
+                    <div class="alert alert-success alert-dismissable">
+                        {{ success_message }}
+                    </div>
+                    <p class="text-center"><a href="{% url 'index' %}">点击返回</a></p>
                     {% endif %}
                 </div>
             </div>
