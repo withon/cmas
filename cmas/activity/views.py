@@ -184,11 +184,16 @@ def create_act(request):
         except:
             context['error_message'] = '人数上限不合法'
             return render(request, 'message.html', context)
-
+        point = 0.0
+        try:
+            point = float(request.POST.get('point').strip())
+        except:
+            point = 0
+        
         user = User.objects.filter(pk=request.user.pk).first()
 
         activity = Activity(title=title, content=content, stime=start_time, ftime=finish_time,
-                            act_type=act_type, max_num=max_num, user_id=user)
+                            act_type=act_type, max_num=max_num, user_id=user, point=point)
 
         try:
             activity.save()
@@ -197,8 +202,8 @@ def create_act(request):
             return render(request, 'message.html', context)
 
         act_id = Activity.objects.all().order_by('-rtime').first().pk
-        sys_content = '<strong>%s</strong> <span>创建</span> <strong>%s</strong> 类型活动 <strong>%s</strong>(id:%s)<br>开始时间为：%s 结束时间为：%s<br>人数上限为：%s' % (
-            user.name, act_type, title, act_id, start_time, finish_time, max_num)
+        sys_content = '<strong>%s</strong> <span>创建</span> <strong>%s</strong> 类型活动 <strong>%s</strong>(id:%s)<br>开始时间为：%s 结束时间为：%s<br>人数上限为：%s 分值为：%s' % (
+            user.name, act_type, title, act_id, start_time, finish_time, max_num, point)
         sysnotice = Sysnotice(content=sys_content, user_id=user)
         sysnotice.save()
 
